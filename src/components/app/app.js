@@ -4,7 +4,7 @@ import Header from '../header/header';
 import RandomChar from '../randomChar/randomChar';
 import ItemList from '../itemList/itemList';
 import CharDetails from '../charDetails/charDetails';
-
+// import './app.css';
 
 const App = () => {
     return (
