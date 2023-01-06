@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './randomChar.css';
 import GoTService from '@services/GoTService';
 import Spinner from '../spinner/spinner';
+import ErrorMessage from '../errorMessage/errorMessage';
 
 const View = ({char}) => {
     const {name, gender, born, died, culture} = char;
@@ -40,6 +41,7 @@ export default class RandomChar extends Component {
     state = {
         char: {},
         isLoading: true,
+        error: false,
     }
 
     onCharLoaded = (char) => {
@@ -48,19 +50,32 @@ export default class RandomChar extends Component {
             isLoading: false
         })
     }
+    onError = (err) => {
+        this.setState({
+            error: true,
+            isLoading: false,
+        })
+    }
 
     updateChar() {
-        const id = Math.floor(Math.random()*140 + 11);
+        // const id = Math.floor(Math.random()*140 + 11);
+        const id = 15000;
         this.goTService.getCharacter(id)
             .then(this.onCharLoaded )
+            .catch(this.onError);
     }
 
     render() {
-        const {char, isLoading} = this.state;
-        const content = isLoading ? <Spinner/> : <View char={char}/> ;
+        const {char, isLoading, error} = this.state;
+
+        const errorMessage = error ? <ErrorMessage/> : null ;
+        const spinner = isLoading ? <Spinner/> : null ;
+        const content = !(isLoading || error) ? <View char={char}/> : null;
         
         return (
             <div className="random-block rounded">
+                {errorMessage}
+                {spinner}
                 {content}
                 {/* <View char={char}/> */}
                 {/* <Spinner/> */}
