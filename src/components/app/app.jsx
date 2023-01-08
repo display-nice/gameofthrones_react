@@ -2,32 +2,40 @@ import React from "react";
 import { Col, Row, Container } from "reactstrap";
 import Header from "../header/header";
 import RandomChar from "../randomChar/randomChar";
-import ItemList from "../itemList/itemList";
-import CharDetails from "../charDetails/charDetails";
-// import './app.css';
 import GoTService from "@services/GoTService.js";
 import { Button } from "reactstrap";
+import ErrorMessage from "@components/errorMessage/errorMessage";
+import CharacterPage from "@components/characterPage/characterPage";
 
 export default class App extends React.Component {
 	state = {
 		randomCharIsVisible: true,
 	};
-	rCharVisibility = () => {
-		this.setState(({ randomCharIsVisible }) => ({
-			randomCharIsVisible: !randomCharIsVisible,
-		}));
+
+	componentDidCatch() {
+		console.log('error');
+		this.setState({
+			error: true
+		})
+	}
+
+	rCharVisibility = () => {		
+        this.setState((state) => {
+            return {
+                randomCharIsVisible: !state.randomCharIsVisible,
+            }
+        })
 	};
+
+    
 	render() {
 		const got = new GoTService();
-		// got.getAllCharacters().then(result => console.log(result))
-
-		// got.getCharacter(130).then(result => console.log(result))
-
-		// getResource('https://jsonplaceholder.typicode.com/todos/10000')
-		// .then(json => console.log('Успех!', json))
-		// .catch(error => console.log(error))
-		const randomChar = this.state.randomCharIsVisible ? <RandomChar /> : null;
 		
+		const randomChar = this.state.randomCharIsVisible ? <RandomChar /> : null;
+		if (this.state.error) {
+			return <ErrorMessage/>
+		}
+
 		return (
 			<>
 				<Container>
@@ -48,14 +56,7 @@ export default class App extends React.Component {
 							</Button>
 						</Col>
 					</Row>
-					<Row>
-						<Col md="6">
-							<ItemList />
-						</Col>
-						<Col md="6">
-							<CharDetails />
-						</Col>
-					</Row>
+					<CharacterPage/>
 				</Container>
 			</>
 		);
