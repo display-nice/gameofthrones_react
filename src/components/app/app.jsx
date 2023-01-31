@@ -13,29 +13,39 @@ export default class App extends React.Component {
 	};
 
 	componentDidCatch() {
-		console.log('error');
+		console.log("error");
 		this.setState({
-			error: true
-		})
+			error: true,
+		});
 	}
 
-	rCharVisibility = () => {		
-        this.setState((state) => {
-            return {
-                randomCharIsVisible: !state.randomCharIsVisible,
-            }
-        })
+	rCharVisibility = () => {
+		this.setState((state) => {
+			return {
+				randomCharIsVisible: !state.randomCharIsVisible,
+			};
+		});
 	};
 
-    
+	randomCharBtn = () => {
+		return (
+			<Button
+				onClick={this.rCharVisibility}
+				color="warning"
+				className="rchar-toggler"
+			>
+				Toggle Random Char
+			</Button>
+		);
+	};
+
 	render() {
 		const got = new GoTService();
-		
+
 		const randomChar = this.state.randomCharIsVisible ? <RandomChar /> : null;
 		if (this.state.error) {
-			return <ErrorMessage/>
+			return <ErrorMessage />;
 		}
-
 		return (
 			<>
 				<Container>
@@ -47,30 +57,12 @@ export default class App extends React.Component {
 					</Row>
 					<Row>
 						<Col lg={{ size: 5, offset: 0 }}>
-							<Button
-								onClick={this.rCharVisibility}
-								color="warning"
-								className="rchar-toggler"
-							>
-								Toggle Random Char
-							</Button>
+							{this.randomCharBtn()}
 						</Col>
 					</Row>
-					<CharacterPage/>
+					<CharacterPage />
 				</Container>
 			</>
 		);
 	}
 }
-
-const rCharBtn = () => {
-	return (
-		<Button
-			randomCharIsVisible={this.state.randomCharIsVisible}
-			color="warning"
-			className="rchar-toggler"
-		>
-			Toggle Random Char visibility
-		</Button>
-	);
-};

@@ -1,47 +1,58 @@
 import React, {Component} from 'react';
 import './itemList.css';
-import GoTService from "@services/GoTService.js";
 import Spinner from '@components/spinner/spinner.jsx';
 
 export default class ItemList extends Component {
-    goTService = new GoTService();
     state = {
-        charList: null,
+        itemList: null,
     }
 
     // Хук с инициализацией.
     // При первичном рендере получает список персонажей и складывает в стейт
     componentDidMount() {
-        this.goTService.getAllCharacters()
-        .then((charList) => {
+        const {getData} = this.props;
+        
+        getData()
+        .then((itemList) => {
             this.setState({
-                charList
+                itemList
             })
         })
     }
+
     renderItems(arr) {
-        return arr.map((item, i) => {
+        return arr.map((item) => {
+            const {id} = item;
+            const label = this.props.renderItem(item);
             return (
                 <li 
-                    key={i}
+                    key={id}
                     className="list-group-item"
-                    onClick={() => this.props.onCharSelected(41 + i)}>
-                    {item.name}
+                    onClick={() => this.props.onItemSelected(id)}>
+                    {label}
                 </li>
             )
         })
     }
 
     render() {
-        const {charList} = this.state;
-        if(!charList) {
-            return <Spinner/>
+        const {itemList} = this.state;
+        if(!itemList) {
+            return (
+                <>
+                    <h4 style={{color: "gray", backgroundColor: "white", textAlign: "center"}}>itemList.jsx</h4>
+                    <Spinner/>
+                </>
+            )
         }
-        const items = this.renderItems(charList)
+        const items = this.renderItems(itemList)
         return (
-            <ul className="item-list list-group">
-                {items}
-            </ul>
+            <>
+                <ul className="item-list list-group">
+                    <li style={{fontSize: "24px", color: "gray", backgroundColor: "white", textAlign: "center"}}>itemList.jsx</li>
+                    {items}
+                </ul>
+            </>
         );
     }
 }

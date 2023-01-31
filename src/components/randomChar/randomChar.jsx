@@ -45,9 +45,10 @@ export default class RandomChar extends Component {
     }
 
     componentDidMount() {
-        console.log('RandomChar mounted');
+        // console.log('RandomChar mounted');
         this.updateChar();
-        this.timerId = setInterval(this.updateChar, 1500)
+        // Включение таймера
+        // this.timerId = setInterval(this.updateChar, 1500)
     }
 
     componentWillUnmount() {
@@ -85,6 +86,7 @@ export default class RandomChar extends Component {
         
         return (
             <div className="random-block rounded">
+                <h4 style={{color: "gray"}}>randomChar.jsx</h4>
                 {errorMessage}
                 {spinner}
                 {content}

@@ -28,8 +28,6 @@ export default class CharDetails extends Component {
             .then((char) => {
                 this.setState({char})
             })
-        // Ошибка для теста
-        // this.foo.bar = 0;
     }
     render() {
         if (!this.state.char) {
@@ -38,6 +36,7 @@ export default class CharDetails extends Component {
         const {name, gender, born, died, culture} = this.state.char;
         return (
             <div className="char-details rounded">
+                <h4 style={{color: "gray"}}>charDetails.jsx</h4>
                 <h4>{name}</h4>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item d-flex justify-content-between">
