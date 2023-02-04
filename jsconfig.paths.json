@@ -9,7 +9,7 @@
 		 "@fonts/*": ["src/assets/fonts/*"],
 		 "@img/*": ["src/assets/img/*"],
 		 "@utils/*": ["src/utils/*"],
-		 "@services/*": ["src/components/services/*"]
+		 "@services/*": ["src/services/*"]
 	  }
 	}
 }

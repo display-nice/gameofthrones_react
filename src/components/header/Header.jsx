@@ -1,7 +1,8 @@
 import React from 'react';
-import './header.css'
 import {Navbar, Nav, NavItem, NavLink} from 'reactstrap';
+// import {Link} from 'react-router-dom';
 
+import './Header.css';
 
 const Header = () => {
     return (
@@ -15,15 +16,15 @@ const Header = () => {
             <Nav pills className='header-nav'>
                 <NavItem>
                     {/* eslint-disable-next-line */}
-                    <NavLink active href="#">Characters</NavLink>
+                    <NavLink active href="/characters">Characters</NavLink>
                 </NavItem>
                 <NavItem>
                     {/* eslint-disable-next-line */}
-                    <NavLink href="#">Houses</NavLink>
+                    <NavLink href="/houses">Houses</NavLink>
                 </NavItem>
                 <NavItem>
                     {/* eslint-disable-next-line */}
-                    <NavLink href="#">Books</NavLink>   
+                    <NavLink href="/books">Books</NavLink>   
                 </NavItem>
             </Nav>
         </Navbar>
